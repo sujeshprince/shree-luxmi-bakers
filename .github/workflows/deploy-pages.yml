@@ -6,6 +6,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+    # Docs/CI-only changes don't need a site rebuild.
+    paths-ignore:
+      - "**.md"
+      - ".github/**"
   workflow_dispatch:
 
 # Allow the workflow to publish to Pages via OIDC.

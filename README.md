@@ -6,6 +6,14 @@ Shastri Chowk Chauraha (Near BSNL Office), Bilandpur, Gorakhpur, Uttar Pradesh 2
 Built with **Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 ·
 Framer Motion · shadcn/ui · React Hook Form + Zod**.
 
+### 🔗 Live site
+
+**https://sujeshprince.github.io/shree-luxmi-bakers/**
+
+Hosted on **GitHub Pages** as a fully static export. Every push to `main`
+rebuilds and redeploys automatically via
+[`.github/workflows/deploy-pages.yml`](./.github/workflows/deploy-pages.yml).
+
 ---
 
 ## Quick start
@@ -13,10 +21,14 @@ Framer Motion · shadcn/ui · React Hook Form + Zod**.
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # production build
+npm run build    # static export → ./out  (GitHub Pages / any static host)
 npm run lint     # ESLint
 npx tsc --noEmit # type check
 ```
+
+> The production build is a **static export** (`output: "export"`) so it can be
+> served from GitHub Pages with no Node.js server. `npm run build` writes the
+> site to `out/`; open `out/index.html` via any static server to preview.
 
 ---
 
@@ -63,11 +75,16 @@ Other keys: `hours` (IST), `delivery`, `formEndpoint`, `siteUrl`.
 ### Environment
 
 ```bash
-# .env.production — used for canonical URLs, OpenGraph, sitemap
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
+# Absolute URL used for canonical / OpenGraph / sitemap
+NEXT_PUBLIC_SITE_URL=https://sujeshprince.github.io/shree-luxmi-bakers
+
+# Repo sub-path the site is served from (GitHub Pages project sites).
+# Leave unset for local dev / custom domains at the root.
+NEXT_PUBLIC_BASE_PATH=/shree-luxmi-bakers
 ```
 
-Defaults to `http://localhost:3000` until set (no domain was invented).
+Both are injected by the deploy workflow. Locally they default to
+`http://localhost:3000` at the root (no domain was invented).
 
 ---
 
@@ -108,7 +125,7 @@ src/
 ├── app/                  # Routes: /, about, menu, cakes, gallery, offers,
 │   │                     # reviews, contact, checkout, not-found
 │   ├── layout.tsx        # Fonts, metadata, JSON-LD, global chrome
-│   ├── robots.ts  sitemap.ts  opengraph-image.tsx
+│   ├── robots.ts  sitemap.ts
 ├── components/
 │   ├── home/             # Homepage sections
 │   ├── product/          # Product card, menu explorer, quick view
@@ -120,6 +137,7 @@ src/
 ├── lib/                  # store (cart/wishlist), whatsapp, links, time, submit, format
 └── types.ts
 public/images/            # Add real photos here (see PHOTO_GUIDE.md)
+public/og.png             # Social share image (1200×630)
 ```
 
 ## ✨ Features
@@ -143,10 +161,24 @@ public/images/            # Add real photos here (see PHOTO_GUIDE.md)
 See **[PHOTO_GUIDE.md](./PHOTO_GUIDE.md)** for every expected file name, shot
 list and sizing. Photos are optional — branded fallbacks render until they exist.
 
-## 🚀 Deploy
+## 🚀 Deploy (GitHub Pages)
 
-1. Set `NEXT_PUBLIC_SITE_URL` in `.env.production`.
-2. Fill phone/WhatsApp/email in `src/config/site.ts`.
-3. Replace sample products/reviews/offers with real data.
-4. Add photos per `PHOTO_GUIDE.md`.
-5. `npm run build` and deploy to Vercel/Node — no extra services required.
+The site is a **static export**, so it deploys to GitHub Pages for free with no server.
+
+**Automatic:** push to `main` → GitHub Actions
+([`.github/workflows/deploy-pages.yml`](./.github/workflows/deploy-pages.yml))
+builds `out/` and publishes it to
+**https://sujeshprince.github.io/shree-luxmi-bakers/**.
+
+One-time repo setup (already done for this repo): **Settings → Pages → Build and
+deployment → Source: GitHub Actions**.
+
+**Before showing the bakery owner:**
+
+1. Fill phone / WhatsApp / email in `src/config/site.ts`.
+2. Replace sample products / reviews / offers / hours with real data.
+3. Add photos per `PHOTO_GUIDE.md`.
+4. (Optional) Set a custom domain and update `NEXT_PUBLIC_SITE_URL`.
+
+> If you add a custom domain served at the root (not a repo sub-path), remove
+> `NEXT_PUBLIC_BASE_PATH` from the workflow so assets aren't prefixed.
