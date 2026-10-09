@@ -6,14 +6,13 @@ Shastri Chowk Chauraha (Near BSNL Office), Bilandpur, Gorakhpur, Uttar Pradesh 2
 Built with **Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 ·
 Framer Motion · shadcn/ui · React Hook Form + Zod**.
 
-### 🌐 Hosting
+### 🔗 Live site
 
-**Not currently deployed.** GitHub Pages has been disabled and the deployment
-workflow removed, so nothing is served live.
+**https://sujeshprince.github.io/shree-luxmi-bakers/**
 
-The project is a **static export** (`output: "export"`), so it can be hosted on
-GitHub Pages, Netlify, Vercel, or any static file host if you choose to publish
-it later. See [Deploy](#-deploy-optional) below.
+Hosted on **GitHub Pages** as a fully static export. Every push to `main`
+rebuilds and redeploys automatically via
+[`.github/workflows/deploy-pages.yml`](./.github/workflows/deploy-pages.yml).
 
 ---
 
