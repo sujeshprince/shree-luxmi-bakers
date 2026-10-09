@@ -101,9 +101,19 @@ export const siteConfig = {
 
   /**
    * Absolute URL used for canonical / OpenGraph / sitemap.
-   * Set NEXT_PUBLIC_SITE_URL in .env.production when deploying.
+   *
+   * Resolution order:
+   *   1. NEXT_PUBLIC_SITE_URL  — set this to your custom domain.
+   *   2. Vercel's auto-injected host (production, then preview).
+   *   3. http://localhost:3000 — local development fallback.
    */
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  siteUrl:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000"),
 } as const;
 
 export type SiteConfig = typeof siteConfig;
