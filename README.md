@@ -6,13 +6,14 @@ Shastri Chowk Chauraha (Near BSNL Office), Bilandpur, Gorakhpur, Uttar Pradesh 2
 Built with **Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 ·
 Framer Motion · shadcn/ui · React Hook Form + Zod**.
 
-### 🔗 Live site
+### 🌐 Hosting
 
-**https://sujeshprince.github.io/shree-luxmi-bakers/**
+**Not currently deployed.** GitHub Pages has been disabled and the deployment
+workflow removed, so nothing is served live.
 
-Hosted on **GitHub Pages** as a fully static export. Every push to `main`
-rebuilds and redeploys automatically via
-[`.github/workflows/deploy-pages.yml`](./.github/workflows/deploy-pages.yml).
+The project is a **static export** (`output: "export"`), so it can be hosted on
+GitHub Pages, Netlify, Vercel, or any static file host if you choose to publish
+it later. See [Deploy](#-deploy-optional) below.
 
 ---
 
@@ -83,8 +84,8 @@ NEXT_PUBLIC_SITE_URL=https://sujeshprince.github.io/shree-luxmi-bakers
 NEXT_PUBLIC_BASE_PATH=/shree-luxmi-bakers
 ```
 
-Both are injected by the deploy workflow. Locally they default to
-`http://localhost:3000` at the root (no domain was invented).
+Set them when building for production (e.g. in a deploy workflow). Locally they
+default to `http://localhost:3000` at the root (no domain was invented).
 
 ---
 
@@ -161,17 +162,17 @@ public/og.png             # Social share image (1200×630)
 See **[PHOTO_GUIDE.md](./PHOTO_GUIDE.md)** for every expected file name, shot
 list and sizing. Photos are optional — branded fallbacks render until they exist.
 
-## 🚀 Deploy (GitHub Pages)
+## 🚀 Deploy (optional)
 
-The site is a **static export**, so it deploys to GitHub Pages for free with no server.
+The site is a **static export** — `npm run build` writes a complete site to
+`out/`, hostable on GitHub Pages, Netlify, Vercel, Cloudflare Pages or any static
+file host. No server or external services are required.
 
-**Automatic:** push to `main` → GitHub Actions
-([`.github/workflows/deploy-pages.yml`](./.github/workflows/deploy-pages.yml))
-builds `out/` and publishes it to
-**https://sujeshprince.github.io/shree-luxmi-bakers/**.
+**To publish to GitHub Pages later:**
 
-One-time repo setup (already done for this repo): **Settings → Pages → Build and
-deployment → Source: GitHub Actions**.
+1. Add a workflow that builds (with the env below) and uploads `out/`.
+2. Repo → **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+3. Set `NEXT_PUBLIC_SITE_URL`, and `NEXT_PUBLIC_BASE_PATH` for a repo sub-path.
 
 **Before showing the bakery owner:**
 
