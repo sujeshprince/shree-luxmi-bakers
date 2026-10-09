@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { PageHero } from "@/components/common/page-hero";
 import { MenuExplorer } from "@/components/product/menu-explorer";
 
@@ -32,9 +31,7 @@ export default function MenuPage() {
 
       <section className="py-14 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Suspense fallback={null}>
-            <MenuExplorer />
-          </Suspense>
+          <MenuExplorer />
         </div>
       </section>
     </>

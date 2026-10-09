@@ -1,13 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { useSearchParams } from "next/navigation";
 import { PackageSearch, Search, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/product/product-card";
 import { RevealGroup, RevealItem } from "@/components/common/reveal";
 import { CATEGORY_LABELS, PRODUCT_CATEGORIES, type ProductCategory } from "@/types";
 import { products } from "@/data/products";
+import { defer } from "@/lib/defer";
 import { cn } from "cn";
 
 type SortKey = "featured" | "price-asc" | "price-desc" | "rating";
@@ -31,18 +31,28 @@ const FILTERS: Array<{ value: Filter; label: string }> = [
 
 /** Searchable, filterable, sortable product catalogue. */
 export function MenuExplorer() {
-  const searchParams = useSearchParams();
-  const initialCategory = searchParams.get("category");
-  const initialQuery = searchParams.get("q") ?? "";
-
-  const [filter, setFilter] = React.useState<Filter>(
-    initialCategory &&
-      (PRODUCT_CATEGORIES as readonly string[]).includes(initialCategory)
-      ? (initialCategory as Filter)
-      : "all",
-  );
-  const [query, setQuery] = React.useState(initialQuery);
+  // Start at "all" so the full catalogue is rendered in the static export.
+  // useSearchParams() would bail the whole component out to an empty
+  // Suspense fallback at build time (no products in the HTML). Instead,
+  // URL filters like /menu?category=cakes are applied after mount below.
+  const [filter, setFilter] = React.useState<Filter>("all");
+  const [query, setQuery] = React.useState("");
   const [sort, setSort] = React.useState<SortKey>("featured");
+
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get("category");
+    const q = params.get("q");
+    defer(() => {
+      if (
+        category &&
+        (PRODUCT_CATEGORIES as readonly string[]).includes(category)
+      ) {
+        setFilter(category as Filter);
+      }
+      if (q) setQuery(q);
+    });
+  }, []);
 
   const visible = React.useMemo(() => {
     const normalized = query.trim().toLowerCase();
