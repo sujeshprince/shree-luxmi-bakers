@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# user photo staging folders - photos are moved into products/, hero/,
+# gallery/, etc. (with the exact names the site needs) before committing.
+/public/images/cakes/
+/public/images/pastry/
+/public/images/snacks/
+/public/images/sweets/
