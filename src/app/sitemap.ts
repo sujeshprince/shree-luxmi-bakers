@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 
+// Required for `output: "export"` (GitHub Pages) — emit a static sitemap.
+export const dynamic = "force-static";
+
 const BASE = siteConfig.siteUrl.replace(/\/$/, "");
 
 export default function sitemap(): MetadataRoute.Sitemap {

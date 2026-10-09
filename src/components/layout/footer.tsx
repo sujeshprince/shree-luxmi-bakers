@@ -31,10 +31,8 @@ function ColumnHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
-export async function Footer() {
-  // Cached so the build-time year stays stable across prerender passes
-  // (Next 16 forbids reading the current time during static prerendering).
-  "use cache";
+export function Footer() {
+  // Evaluated once at build time for the static export.
   const year = new Date().getFullYear();
 
   return (

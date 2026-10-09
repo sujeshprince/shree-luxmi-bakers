@@ -31,6 +31,14 @@ const poppins = Poppins({
 
 const siteTitle = `${siteConfig.name} — Premium Cakes, Bakery & Indian Sweets in Gorakhpur`;
 
+/**
+ * Absolute (base-path-aware) URLs. The site is deployed under a GitHub
+ * Pages sub-path, so the Open Graph image must be referenced with its full
+ * path — relying on the file convention double-prefixes basePath.
+ */
+const siteUrl = siteConfig.siteUrl.replace(/\/$/, "");
+const ogImageUrl = `${siteUrl}/og.png`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
   title: {
@@ -54,13 +62,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: siteConfig.siteUrl,
+    url: siteUrl,
     siteName: siteConfig.name,
     title: siteTitle,
     description: siteConfig.description,
     images: [
       {
-        url: "/opengraph-image",
+        url: ogImageUrl,
         width: 1200,
         height: 630,
         alt: `${siteConfig.name} — premium cakes and Indian sweets`,
@@ -71,7 +79,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteTitle,
     description: siteConfig.description,
-    images: ["/opengraph-image"],
+    images: [{ url: ogImageUrl, alt: `${siteConfig.name} — premium cakes and Indian sweets` }],
   },
   robots: { index: true, follow: true },
 };
