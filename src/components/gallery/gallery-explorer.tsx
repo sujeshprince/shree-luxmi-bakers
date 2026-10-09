@@ -162,14 +162,6 @@ export function GalleryExplorer({ items }: GalleryExplorerProps) {
         </div>
       )}
 
-      {/* Sample note */}
-      <p className="text-center text-xs text-muted-foreground">
-        Sample gallery — replace with the bakery&apos;s real work in{" "}
-        <code className="rounded bg-gold/15 px-1.5 py-0.5 text-[0.7rem] text-gold-deep dark:text-gold">
-          /public/images/gallery/
-        </code>
-      </p>
-
       {/* Lightbox */}
       {open ? (
         <div
